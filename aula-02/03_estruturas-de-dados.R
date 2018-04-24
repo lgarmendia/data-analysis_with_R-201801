@@ -48,6 +48,8 @@ if(is.atomic(answer)) print("É atômico.")
 if(is.numeric(answer)) print("É numérico")
 if(length(answer) == 1) print("Tamanho 1") 
 
+length(init_fibonacci)
+
 #' 
 #' Os elementos de um vetor podem ser acessados através do índice, sempre lembrando que vetores em R são indexados a partir de 1.
 #' 
@@ -62,6 +64,7 @@ seq_10[5]
 
 # Alguém arrisca dizer qual o resultado desta soma?
 seq_10_from_2 <- seq_10 + 1
+seq_10_from_2
 
 # Quem são os elementos maiores que 6?
 seq_10_from_2 > 6
@@ -69,6 +72,9 @@ which(seq_10_from_2 > 6) # Índices
 
 # Exiba-os, por favor :: a indexação também pode ser feita através de vetores lógicos, retornando todas as posições indexadas por TRUE
 seq_10_from_2[seq_10_from_2 > 6]
+
+v2 <- c(1,11,5,14,6,8,7)
+v2 [v2 > 6]
 
 # Os 3 primeiros elementos, pela sua posição
 seq_10_from_2[1:3]
@@ -93,6 +99,7 @@ seq(from=0, to=5, by=.5)
 #' 
 ## ------------------------------------------------------------------------
 resposta <- list(7, '*', 6, '=', list(42), c("quarenta", "e", "dois"))
+
 
 # A função glimpse apresenta uma prévia do conteúdo da lista passada como parâmetro. A função `str` atende o mesmo propósito.
 dplyr::glimpse(resposta)
@@ -123,3 +130,6 @@ named_list$spelled
 # Desta forma o conteúdo pode ser utilizado como uma variável
 named_list$number * 2
 
+nome_lista <- list(nome="Lucas", sobrenome="Garmendia")
+nome_lista$nome
+nome_lista$sobrenome
