@@ -54,31 +54,25 @@ acessos <- unlist(acessos_alunos)
 ## 3. Determine o tamanho do vetor da operação 2, imprimindo o resultado na Console
 ### # ###
 
-diferente <- which(acessos != meuacesso)
-diferente
+diferente <- acessos[acessos != meuacesso]
 
-maior <- which(acessos > meuacesso)
-maior
+maior <- acessos[acessos > meuacesso]
 
-maiorvet <- acessos [c(maior)]
-maiorvet
+length(maior)
 
-tamanho4 <- length(maiorvet)
-tamanho4
 ### 5 ###
 ## Combine todas as etapas acima em uma única chamada, sem a criação dos vetores auxiliares
 ### # ###
 
-maiorvet5 <- acessos[c(which(c(acessos)>meuacesso))]
-maiorvet5
+length(acessos[acessos>meuacesso])
+
 
 ### 6 ###
 ## Agora determine quantos colegas fizeram menos acessos que você. 
 ## Faça isso utilizando a função sum!
-maiorvet6 <- acessos[c(which(c(acessos)<meuacesso))]
-maiorvet6
+menorvet <- acessos[acessos<meuacesso]
 
-menor <- c(maiorvet6)
+menor <- c(menorvet)
 
 sum(menor < meuacesso)
 
@@ -98,7 +92,7 @@ sum(menor < meuacesso)
 ### # ###
 notas <- acessos
 
-notas[which(notas == 0)] <- 0 # row numbers
+notas[which(notas == 0)] <- NA # row numbers
 
 notas[which(notas > 0 & notas < 10)] <- 1
 
@@ -122,48 +116,39 @@ acessosguest <- unlist(acessos_alunos_e_guest)
 
 ## Repita as atividades 4, 5, 6, e 7 utilizando o acessos_com_guest no lugar da lista acessos_alunos.
 ## Tome o devido cuidado de sempre criar variáveis com nomes diferentes das já utilizadas! 
+##Diferente
+diferenteacesso <- acessosguest[acessosguest != meuacesso]
+diferenteacesso
+##maior
+maiorguest <- acessosguest[acessosguest > meuacesso]
+maiorguest
+##tamanho
+length(maiorguest)
+##unico 
+length(acessosguest[acessosguest>meuacesso])
+##menor
+menorvetguest <- acessosguest[acessosguest<meuacesso]
+##soma menor acesso
+sum(menorvetguest < meuacesso)
+##exercicio 7
+notasguest <- acessosguest
 
-dif9 <- which(acessosguest != meuacesso)
-dif9
+notasguest[which(notasguest == 0)] <- NA # row numbers
 
-maior9 <- which(acessosguest > meuacesso)
-maior9
+notasguest[which(notasguest > 0 & notasguest < 10)] <- 1
 
-maiorvet9 <- acessosguest [c(maior9)]
-maiorvet9
+notasguest[which(notasguest >= 10)] <- 2
 
-tamanho9 <- length(maiorvet9)
-tamanho9
-
-maiunicovet9 <- acessosguest[c(which(c(acessosguest)>meuacesso))]
-maiunicovet9
-
-menorvet9 <- acessosguest[c(which(c(acessosguest)<meuacesso))]
-menorvet9
-
-menor9 <- c(menorvet9)
-
-sum(menor9 < meuacesso)
-
-
-notas9 <- acessosguest
-
-notas9[which(notas9 == 0)] <- 0 # row numbers
-
-notas9[which(notas9 > 0 & notas9 < 10)] <- 1
-
-notas9[which(notas9 >= 10)] <- 2
-
-notas9
+notasguest
 
 ### 10 ###
 ## Responda as seguintes perguntas:
 
 
 # 1. Houve modificação no número de alunos com mais e com menos acessos que você?
-# Não
+# Sim
 # 2. Como você conclui que o R trata comparações (operações relacionais) entre valores numéricos e NA?
-# Ele desconsidera o NA para fazer a comparação.
+# Ele considera o NA para fazer a comparação, mas não sabe identificar o tipo de valor e acaba trazendo o resultado para ambas comparações.
 # 3. Qual o resultado do uso da função sum na presença de NA? O que você conclui sobre a operação de soma de todos os valores de
 #    um vetor na presença de NA?
 # Ele retornará NA se possuir alguma valor NA no vetor.
@@ -171,3 +156,4 @@ notas9
 #    de NAs. Teste os exemplos da página de help da função sum.
 #Sim é possível alterar a função SUM utlizando na.rm = TRUE
 help(sum)
+sum(menorvetguest < meuacesso, na.rm = TRUE)
