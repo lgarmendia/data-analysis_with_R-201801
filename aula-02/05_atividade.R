@@ -15,7 +15,7 @@ load("aula-02/data/dados_exercicio.RData")
 
 str(acessos_alunos)
 
-length(acessos_alunos)
+
 
 
 ### 2 ###
@@ -24,12 +24,9 @@ length(acessos_alunos)
 ## Dica: Vimos um exemplo no mesmo material sobre estruturas de dados
 ### # ###
 #alu201830199
+length(acessos_alunos)
 
 
-meuacesso <- acessos_alunos[["alu201830199"]]
-meuacesso
-
-paste("O aluno alu201830199 realizou", meuacesso, "acessos")
 
 ### 3 ###
 ## Utilizando o seu código de aluno da Uniritter como nome de um valor da lista, imprima uma linha informando quantos acessos
@@ -39,7 +36,10 @@ paste("O aluno alu201830199 realizou", meuacesso, "acessos")
 ## Dica 1: Utilize a função paste() para composição do texto que será impresso. 
 ## Dica 2: Vimos exemplos disto nos materiais dos tipos numéricos e das estruturas de dados.
 ### # ###
+meuacesso <- acessos_alunos[["alu201830199"]]
+meuacesso
 
+paste("O aluno alu201830199 realizou", meuacesso, "acessos")
 
 
 ### 4 ###
@@ -54,28 +54,33 @@ acessos <- unlist(acessos_alunos)
 ## 3. Determine o tamanho do vetor da operação 2, imprimindo o resultado na Console
 ### # ###
 
+diferente <- which(acessos != meuacesso)
+diferente
+
 maior <- which(acessos > meuacesso)
 maior
 
-maiorvet<-acessos[c(maior)]
+maiorvet <- acessos [c(maior)]
 maiorvet
 
+tamanho4 <- length(maiorvet)
+tamanho4
 ### 5 ###
 ## Combine todas as etapas acima em uma única chamada, sem a criação dos vetores auxiliares
 ### # ###
 
-maiorvet5 <- acessos[c(which(c(acessos_alunos)>acesso))]
+maiorvet5 <- acessos[c(which(c(acessos)>meuacesso))]
 maiorvet5
 
 ### 6 ###
 ## Agora determine quantos colegas fizeram menos acessos que você. 
 ## Faça isso utilizando a função sum!
-maiorvet6 <- acessos[c(which(c(acessos_alunos)<acesso))]
+maiorvet6 <- acessos[c(which(c(acessos)<meuacesso))]
 maiorvet6
 
 menor <- c(maiorvet6)
 
-sum(menor < acesso)
+sum(menor < meuacesso)
 
 ## Dica: Lembre que falamos sobre como o R faz conversões implícitas entre o tipo lógico e tipos numéricos
 ### # ###
@@ -93,7 +98,7 @@ sum(menor < acesso)
 ### # ###
 notas <- acessos
 
-notas[which(notas == 0)] <- NA # row numbers
+notas[which(notas == 0)] <- 0 # row numbers
 
 notas[which(notas > 0 & notas < 10)] <- 1
 
@@ -113,23 +118,56 @@ table(notas)
 ## Não foi possível determinar o número de acessos por não existir um login para este tipo de acesso.
 acessos_alunos_e_guest <- acessos_alunos
 acessos_alunos_e_guest$guest <- NA
+acessosguest <- unlist(acessos_alunos_e_guest)
 
 ## Repita as atividades 4, 5, 6, e 7 utilizando o acessos_com_guest no lugar da lista acessos_alunos.
 ## Tome o devido cuidado de sempre criar variáveis com nomes diferentes das já utilizadas! 
 
+dif9 <- which(acessosguest != meuacesso)
+dif9
 
+maior9 <- which(acessosguest > meuacesso)
+maior9
+
+maiorvet9 <- acessosguest [c(maior9)]
+maiorvet9
+
+tamanho9 <- length(maiorvet9)
+tamanho9
+
+maiunicovet9 <- acessosguest[c(which(c(acessosguest)>meuacesso))]
+maiunicovet9
+
+menorvet9 <- acessosguest[c(which(c(acessosguest)<meuacesso))]
+menorvet9
+
+menor9 <- c(menorvet9)
+
+sum(menor9 < meuacesso)
+
+
+notas9 <- acessosguest
+
+notas9[which(notas9 == 0)] <- 0 # row numbers
+
+notas9[which(notas9 > 0 & notas9 < 10)] <- 1
+
+notas9[which(notas9 >= 10)] <- 2
+
+notas9
 
 ### 10 ###
 ## Responda as seguintes perguntas:
 
 
 # 1. Houve modificação no número de alunos com mais e com menos acessos que você?
-
+# Não
 # 2. Como você conclui que o R trata comparações (operações relacionais) entre valores numéricos e NA?
-
+# Ele desconsidera o NA para fazer a comparação.
 # 3. Qual o resultado do uso da função sum na presença de NA? O que você conclui sobre a operação de soma de todos os valores de
 #    um vetor na presença de NA?
-
+# Ele retornará NA se possuir alguma valor NA no vetor.
 # 4. Execute o comando abaixo para ler a documentação da função sum e veja se há como modificar a chamada da função sum na presença
 #    de NAs. Teste os exemplos da página de help da função sum.
+#Sim é possível alterar a função SUM utlizando na.rm = TRUE
 help(sum)
