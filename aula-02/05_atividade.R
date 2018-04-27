@@ -65,7 +65,6 @@ maiorvet
 ### # ###
 
 maiorvet5 <- acessos[c(which(c(acessos_alunos)>acesso))]
-
 maiorvet5
 
 ### 6 ###
@@ -92,19 +91,15 @@ sum(menor < acesso)
 ## Dica: Pode ser mais fácil se iniciar o vetor notas como uma cópia do vetor acessos, modificando os valores conforme as regras
 ## OBSERVAÇÃO :: Não avaliarei participação na forma do enunciado deste exercício. 
 ### # ###
-sa <- acessos_alunos[which(acessos_alunos == 0)] # row numbers
-salunos <- c(sa,"0")
-c(salunos)
-ua <- acessos_alunos[which(acessos_alunos > 0 & acessos_alunos < 10)]
-ua 
-ualunos <- c(ua,"1")
-ualunos
-C(ualunos)
-md <- acessos_alunos[which(acessos_alunos >= 10)]
-mdalunos <- c(md,"2")
-mdalunos
+notas <- acessos
 
-c(c(salunos),c(ualunos),c(mdalunos))
+notas[which(notas == 0)] <- NA # row numbers
+
+notas[which(notas > 0 & notas < 10)] <- 1
+
+notas[which(notas >= 10)] <- 2
+
+notas
 
 ### 8 ###
 ## Visualização da quantidade de alunos com cada nota de participação. Esta não é uma atividade, apenas uma ilustração de como
