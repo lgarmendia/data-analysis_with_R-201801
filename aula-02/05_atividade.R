@@ -18,15 +18,18 @@ str(acessos_alunos)
 length(acessos_alunos)
 
 
-
 ### 2 ###
 ## Quantos elementos a variável acessos_alunos possui? Utilize uma função do R que retorna o tamanho da variável.
 
 ## Dica: Vimos um exemplo no mesmo material sobre estruturas de dados
 ### # ###
+#alu201830199
 
 
+meuacesso <- acessos_alunos[["alu201830199"]]
+meuacesso
 
+paste("O aluno alu201830199 realizou", meuacesso, "acessos")
 
 ### 3 ###
 ## Utilizando o seu código de aluno da Uniritter como nome de um valor da lista, imprima uma linha informando quantos acessos
@@ -43,6 +46,7 @@ length(acessos_alunos)
 ## A operação abaixo cria um vetor com todas as quantidades de acessos por aluno.
 acessos <- unlist(acessos_alunos)
 
+
 ## Após a criação deste vetor, determine quantos colegas fizeram mais acessos que você.
 ## Faça isso em 3 etapas: 
 ## 1. Crie uma variável com o resultado de um teste de comparação (relacional) entre o seu número de acessos e os demais.
@@ -50,21 +54,32 @@ acessos <- unlist(acessos_alunos)
 ## 3. Determine o tamanho do vetor da operação 2, imprimindo o resultado na Console
 ### # ###
 
+maior <- which(acessos > meuacesso)
+maior
 
+maiorvet<-acessos[c(maior)]
+maiorvet
 
 ### 5 ###
 ## Combine todas as etapas acima em uma única chamada, sem a criação dos vetores auxiliares
 ### # ###
 
+maiorvet5 <- acessos[c(which(c(acessos_alunos)>acesso))]
 
+maiorvet5
 
 ### 6 ###
 ## Agora determine quantos colegas fizeram menos acessos que você. 
 ## Faça isso utilizando a função sum!
+maiorvet6 <- acessos[c(which(c(acessos_alunos)<acesso))]
+maiorvet6
+
+menor <- c(maiorvet6)
+
+sum(menor < acesso)
 
 ## Dica: Lembre que falamos sobre como o R faz conversões implícitas entre o tipo lógico e tipos numéricos
 ### # ###
-
 
 
 ### 7 ###
@@ -77,8 +92,19 @@ acessos <- unlist(acessos_alunos)
 ## Dica: Pode ser mais fácil se iniciar o vetor notas como uma cópia do vetor acessos, modificando os valores conforme as regras
 ## OBSERVAÇÃO :: Não avaliarei participação na forma do enunciado deste exercício. 
 ### # ###
+sa <- acessos_alunos[which(acessos_alunos == 0)] # row numbers
+salunos <- c(sa,"0")
+c(salunos)
+ua <- acessos_alunos[which(acessos_alunos > 0 & acessos_alunos < 10)]
+ua 
+ualunos <- c(ua,"1")
+ualunos
+C(ualunos)
+md <- acessos_alunos[which(acessos_alunos >= 10)]
+mdalunos <- c(md,"2")
+mdalunos
 
-
+c(c(salunos),c(ualunos),c(mdalunos))
 
 ### 8 ###
 ## Visualização da quantidade de alunos com cada nota de participação. Esta não é uma atividade, apenas uma ilustração de como
