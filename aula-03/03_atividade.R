@@ -13,8 +13,13 @@ salarios <- read_csv("aula-03/data/201802_dados_salarios_servidores.csv.gz")
 ## Após criar esta coluna, descarte todos os registros cuja Remuneração Final for menor que R$ 900,00
 ## 
 ### # ####
+dolar <- 3.2421 
 
+salarios %>%
+  mutate(REMUNERACAO_FINAL = REMUNERACAO_REAIS * dolar, REMUNERACAO_REAIS,REMUNERACAO_DOLARES)%>%
+  filter(REMUNERACAO_FINAL < 900.00)
 
+    
 ### 2 ####
 ## 
 ## Neste dataset é possível identificar que alguns servidores estão lotados em órgãos diferentes do seu órgão de exercício.
