@@ -16,8 +16,8 @@ salarios <- read_csv("aula-03/data/201802_dados_salarios_servidores.csv.gz")
 dolar <- 3.2421 
 
 salarios %>%
-  mutate(REMUNERACAO_FINAL = REMUNERACAO_REAIS * dolar, REMUNERACAO_REAIS,REMUNERACAO_DOLARES)%>%
-  filter(REMUNERACAO_FINAL < 900.00)
+  mutate(REMUNERACAO_FINAL = (REMUNERACAO_DOLARES * dolar)+REMUNERACAO_REAIS)%>%
+  filter(REMUNERACAO_FINAL > 900.00)
 
     
 ### 2 ####
@@ -30,7 +30,13 @@ salarios %>%
 salarios %>% count(UF_EXERCICIO) %>% pull(UF_EXERCICIO) -> ufs # EXEMPLO
 ## 
 ### # ####
-
+salarios %>% 
+  filter(ORGSUP_LOTACAO != ORGSUP_EXERCICIO)%>% 
+  group_by(UF_EXERCICIO)%>% 
+  select(UF_EXERCICIO,ORGSUP_EXERCICIO)%>% 
+  ungroup()%>%
+  arrange(desc(UF_EXERCICIO))
+ 
 
 ### 3 ####
 ## 
