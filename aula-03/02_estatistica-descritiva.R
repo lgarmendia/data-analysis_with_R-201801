@@ -242,15 +242,29 @@ subset_salarios %>%
 #' 
 ## ------------------------------------------------------------------------
 print("Atividade")
+  subset_salarios %>%
+    group_by(UF_EXERCICIO) %>%
+    summarise(salario_medio = mean(REMUNERACAO_REAIS)
+              , servidores = n()
+              , salario_mediano = median( REMUNERACAO_REAIS)
+              , medio_maior = salario_medio > salario_mediano) %>%
+    ungroup() %>%
+    group_by(medio_maior)%>%
+    summarise(total = n())%>%
+    ungroup()
+   
+ ##  count(medio_maior) essa forma combina com group_by e summarise -- Tera o mesmo retorno do group_by(medio_maior)%>%
 
-## Código aqui
+  
+
+## 
 
 #' 
 #' __Atividade II__
 #' 
 #' Qual sua justificativa para a quantidade de casos onde a mediana foi maior que a média? Dica: Observe o gráfico que mostra a média e a mediana. Há cauda longa? Em qual direção?
 #' 
-#' ``` SUA RESPOSTA AQUI ```
+#' ``' A média ficou maior que a mediana porque ela considera valores extremos, já a mediana permanecerá no mesmo centro de distribuição. Existe uma cauda longa ```
 #' 
 #' >> FIM DA ATIVIDADE
 #' 
@@ -336,7 +350,17 @@ subset_salarios %>%
 ## ------------------------------------------------------------------------
 print("Atividade")
 
-## Código aqui
+
+  dois_desvios <- 2 * sd( subset_salarios$REMUNERACAO_REAIS )
+  media <- mean(subset_salarios$REMUNERACAO_REAIS)
+  media + dois_desvios
+  dois_desvios_da_media <- media + dois_desvios
+  
+  subset_salarios %>%
+      filter(REMUNERACAO_REAIS <= dois_desvios_da_media) %>%
+      nrow() -> total_dentro_dois_desvios
+  
+  total_dentro_dois_desvios / nrow(subset_salarios)
 
 #' 
 #' __Atividade II__
@@ -346,7 +370,38 @@ print("Atividade")
 ## ------------------------------------------------------------------------
 print("Atividade")
 
-## Código aqui
+    subset_salarios %>%
+      group_by(DESCRICAO_CARGO, UF_EXERCICIO)%>%
+      summarise (variacao = var(REMUNERACAO_REAIS)
+                 , media_variacao = mean(REMUNERACAO_REAIS)) %>%
+      ungroup()%>%
+      group_by(DESCRICAO_CARGO,UF_EXERCICIO,variacao)%>%
+      summarise(total = n())%>%
+      ungroup()
+    
+    subset_salarios %>%
+      group_by(DESCRICAO_CARGO, UF_EXERCICIO)%>%
+      summarise (variacao = var(REMUNERACAO_REAIS))
+    
+    subset_salarios %>%
+      count( DESCRICAO_CARGO)%>%
+      filter (n > 100) -> qtd_cargo
+    
+    subset_salarios %>%
+        filter(DESCRICAO_CARGO %in% qtd_cargo$DESCRICAO_CARGO)
+    
+    subset_salarios %>%
+      group_by(DESCRICAO_CARGO)%>%
+      filter (n() > 100) %>%
+      summarise(desvio_padrao = sd(REMUNERACAO_REAIS)
+                ,media = mean(REMUNERACAO_REAIS)
+                , cv = desvio_padrao / media
+                , qtde_servidores = n()
+                , menor_salario = min(REMUNERACAO_REAIS)
+                , maior_salario = max(REMUNERACAO_REAIS)) %>%
+      ungroup()%>%
+      head(arrange(cv), n = 10 )
+    
 
 #' 
 #' __Atividade III__

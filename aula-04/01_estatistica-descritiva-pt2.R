@@ -105,6 +105,7 @@ ocorrencias_valores_aleatorios <- table(valores_aleatorios_uniforme)
 # Quantas ocorrências do valor mais frequente?
 max(ocorrencias_valores_aleatorios)
 
+
 #' 
 ## ------------------------------------------------------------------------
 (moda_uniforme <- mode(valores_aleatorios_uniforme))
