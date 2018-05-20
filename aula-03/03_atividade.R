@@ -13,11 +13,11 @@ salarios <- read_csv("aula-03/data/201802_dados_salarios_servidores.csv.gz")
 ## Após criar esta coluna, descarte todos os registros cuja Remuneração Final for menor que R$ 900,00
 ## 
 ### # ####
-dolar <- 3.2421 
+dolar <- 3.24
 
 salarios %>%
   mutate(REMUNERACAO_FINAL = (REMUNERACAO_DOLARES * dolar)+REMUNERACAO_REAIS)%>%
-  filter(REMUNERACAO_FINAL > 900.00)
+  filter(REMUNERACAO_FINAL > 900.00) -> salarios
 
     
 ### 2 ####
@@ -31,12 +31,16 @@ salarios %>% count(UF_EXERCICIO) %>% pull(UF_EXERCICIO) -> ufs # EXEMPLO
 ## 
 ### # ####
 salarios %>% 
-  filter(ORGSUP_LOTACAO != ORGSUP_EXERCICIO)%>% 
-  group_by(UF_EXERCICIO)%>% 
-  select(UF_EXERCICIO,ORGSUP_EXERCICIO)%>% 
-  ungroup()%>%
-  arrange(desc(UF_EXERCICIO))
+  filter(ORGSUP_LOTACAO != ORGSUP_EXERCICIO) -> orgao_diferentes 
  
+orgao_diferentes %>%
+  group_by (DESCRICAO_CARGO)%>%
+  summarize(qtdservidoresCargo = n())%>%
+  ungroup()%>%
+  arrange(desc(qtdservidoresCargo))%>%
+  head(5) %>%
+  pull(DESCRICAO_CARGO) -> qtdservidoresCargolista
+
 
 ### 3 ####
 ## 
@@ -53,6 +57,17 @@ salarios %>%
 ##    - o maior salário
 ## Analise os valores por lotação dentro de um mesmo cargo e comente ao final do exercício se você considera alguma diferença significativa.
 ## 
+salarios %>%
+  filter(DESCRICAO_CARGO %in%qtdservidoresCargolista)%>%
+  mutate(mesmoOrgao = if_else(ORGSUP_LOTACAO == ORGSUP_EXERCICIO, "mesmo", "diferente"))%>%
+  group_by(DESCRICAO_CARGO, mesmoOrgao)%>%
+  summarise(mediaSalario = mean(REMUNERACAO_FINAL),
+            desvioPadrao = sd(REMUNERACAO_FINAL),
+            mediana = median(REMUNERACAO_FINAL),
+            desvioAbsoluto = median( abs( REMUNERACAO_FINAL - median( REMUNERACAO_FINAL ))),
+            menorSalario = min(REMUNERACAO_FINAL),
+            maiorSalario = max(REMUNERACAO_FINAL)
+        )
 ## Dica 1: o operador %in% testa se valores de uma variável pertencem ao conjunto de valores de um vetor. Lembre que deve ser utilizada a variável cargos_diferente_lotacao
 salarios %>% filter(DESCRICAO_CARGO %in% c("MINISTRO DE PRIMEIRA CLASSE", "ANALISTA DE TEC DA INFORMACAO", "PESQUISADOR")) %>% count(DESCRICAO_CARGO) # EXEMPLO
 ## Dica 2: Será necessário agrupar (group_by) por mais de uma variável para calcular as estatísticas solicitadas. 
