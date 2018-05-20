@@ -57,6 +57,14 @@ orgao_diferentes %>%
 ##    - o maior salário
 ## Analise os valores por lotação dentro de um mesmo cargo e comente ao final do exercício se você considera alguma diferença significativa.
 ## 
+
+## Dica 1: o operador %in% testa se valores de uma variável pertencem ao conjunto de valores de um vetor. Lembre que deve ser utilizada a variável cargos_diferente_lotacao
+salarios %>% filter(DESCRICAO_CARGO %in% c("MINISTRO DE PRIMEIRA CLASSE", "ANALISTA DE TEC DA INFORMACAO", "PESQUISADOR")) %>% count(DESCRICAO_CARGO) # EXEMPLO
+## Dica 2: Será necessário agrupar (group_by) por mais de uma variável para calcular as estatísticas solicitadas. 
+## A função group_by permite múltiplos nomes de variáveis na mesma chamada.
+## 
+### # ####
+
 salarios %>%
   filter(DESCRICAO_CARGO %in%qtdservidoresCargolista)%>%
   mutate(mesmoOrgao = if_else(ORGSUP_LOTACAO == ORGSUP_EXERCICIO, "mesmo", "diferente"))%>%
@@ -67,11 +75,6 @@ salarios %>%
             desvioAbsoluto = median( abs( REMUNERACAO_FINAL - median( REMUNERACAO_FINAL ))),
             menorSalario = min(REMUNERACAO_FINAL),
             maiorSalario = max(REMUNERACAO_FINAL)
-        )
-## Dica 1: o operador %in% testa se valores de uma variável pertencem ao conjunto de valores de um vetor. Lembre que deve ser utilizada a variável cargos_diferente_lotacao
-salarios %>% filter(DESCRICAO_CARGO %in% c("MINISTRO DE PRIMEIRA CLASSE", "ANALISTA DE TEC DA INFORMACAO", "PESQUISADOR")) %>% count(DESCRICAO_CARGO) # EXEMPLO
-## Dica 2: Será necessário agrupar (group_by) por mais de uma variável para calcular as estatísticas solicitadas. 
-## A função group_by permite múltiplos nomes de variáveis na mesma chamada.
-## 
-### # ####
+  )
 
+##Existe uma diferenca bem grande entre o menor e o maior salario dentro de cada cargo.
