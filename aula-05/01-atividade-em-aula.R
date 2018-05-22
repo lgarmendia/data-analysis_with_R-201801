@@ -2,10 +2,13 @@
 library(tidyverse)
 library(lubridate)
 library(dplyr)
+library("lubridate")
 
 
 # Crie um dataframe com o conteúdo do arquivo ted_main.csv.gz. 
 ted <- read_csv("aula-05/data/ted_main.csv.gz")
+
+
 
 
 # Visualize o resumo dos dados do dataframe. Verifique os mínimos, máximos, médias e medianas das variáveis numéricas.
@@ -29,11 +32,11 @@ ted$published_date <- as_datetime(ted$published_date)
 # Converta as seguintes variáveis character para variáveis categóricas com a função factor.
 #     * event
 #     * speaker_occupation
-ted %>%
-  mutate(event = factor(event),
-         speaker_occupation = factor(speaker_occupation)
-         )
-  
+  ted %>%
+    mutate(event = factor(event),
+           speaker_occupation = factor(speaker_occupation)
+           )
+    
 
 
 
@@ -62,24 +65,38 @@ ted %>%
 
 # Crie um dataframe com a contagem de apresentações por ano de filmagem e visualize todo o seu conteúdo
 ted %>%
-  group_by(year(film_date))%>%
-  mutate(contApresentacoes = n())%>%
-  ungroup()
+  group_by(year_film_date = year(film_date))%>%
+  summarise(contApresentacoes = n())%>%
+  ungroup() -> ted_Apresentacoes
 
 
 # Analise os 10 quantis da quantidade de apresentações por ano.
 # Descarte, do data frame de apresentações do TED Talks, aqueles cujo ano de filmagem tiver quantidade de apresentações menor ou igual à quantidade do quarto quantil.
 
+ted_vet <- c(quantile(ted_Apresentacoes$contApresentacoes, probs = seq(0,1,0.1)))[5]
 
+ted_Apresentacoes %>%
+    group_by(year(film_date))%>%
+    filter(contApresentacoes > ted_vet)%>%
+  ungroup()%>%
+  View
 
+valor_quarto_quantil <- ted_Apresentacoes %>%
+                      filter(year_film_date == ted_vet)%>%
+                      distinct(contApresentacoes)
+                    
+ted_Apresentacoes %>%
+    filter(contApresentacoes > valor_quarto_quantil$contApresentacoes)
 
 # Verifique novamente o resumo dos dados do dataframe
 
 
-
+  
 
 # Verifique os 10 registros com maior duração.
-
+ted_Apresentacoes %>%
+arrange(desc(duration)) %>%
+  head(10)
 
 
 
