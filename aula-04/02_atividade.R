@@ -29,7 +29,11 @@ salarios %>%
   ungroup() %>%
   filter(qtdServidoresCargo > 200) %>%
   pull(DESCRICAO_CARGO) -> cargos_200
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> dd542afdb4ef7c1dc6b5ffe4e863b1951dcb9dce
 
 salarios %>%
   filter(DESCRICAO_CARGO %in% cargos_200) %>%
@@ -38,6 +42,7 @@ salarios %>%
   ungroup() %>%
   mutate(positivo_negativo = if_else(correlacao > 0,"Positivo","Negativo")
          ,grau_correlacao = case_when(
+<<<<<<< HEAD
            abs(correlacao) >= 0.9 ~ "MUITO FORTE",
            abs(correlacao) >= 0.7 ~ "FORTE",
            abs(correlacao) >= 0.5 ~ "MODERADO",
@@ -45,6 +50,15 @@ salarios %>%
            abs(correlacao) >= 0.0 ~ "DESPREZÍVEL"
          )
   ) -> df_Correlacao
+=======
+                             abs(correlacao) >= 0.9 ~ "MUITO FORTE",
+                             abs(correlacao) >= 0.7 ~ "FORTE",
+                             abs(correlacao) >= 0.5 ~ "MODERADO",
+                             abs(correlacao) >= 0.3 ~ "FRACO",
+                             abs(correlacao) >= 0.0 ~ "DESPREZÍVEL"
+                            )
+         ) -> df_Correlacao
+>>>>>>> dd542afdb4ef7c1dc6b5ffe4e863b1951dcb9dce
 
 
 ### 2 ###
@@ -79,4 +93,8 @@ salarios %>%
   filter(DESCRICAO_CARGO %in% correlacoes_20) %>%
   group_by(DESCRICAO_CARGO, ORGSUP_EXERCICIO) %>%
   summarize(moda_OrgaoExercicio = n()) %>%
+<<<<<<< HEAD
   View()
+=======
+  View()
+>>>>>>> dd542afdb4ef7c1dc6b5ffe4e863b1951dcb9dce

@@ -21,7 +21,11 @@ ted %>%
   mutate(duration = as.duration(duration),
          film_date = as_datetime(film_date),
          published_date = as_datetime(published_date)
+<<<<<<< HEAD
   ) -> ted
+=======
+         ) -> ted
+>>>>>>> dd542afdb4ef7c1dc6b5ffe4e863b1951dcb9dce
 
 
 # Converta as seguintes variáveis character para variáveis categóricas com a função factor.
@@ -29,8 +33,13 @@ ted %>%
 #     * speaker_occupation
 
 ted %>%
+<<<<<<< HEAD
   mutate(event = factor(event),
          speaker_occupation = factor(speaker_occupation)) -> ted
+=======
+    mutate(event = factor(event),
+           speaker_occupation = factor(speaker_occupation)) -> ted
+>>>>>>> dd542afdb4ef7c1dc6b5ffe4e863b1951dcb9dce
 
 
 
@@ -62,7 +71,7 @@ ted %>%
   group_by(year_film_date = year(film_date)) %>%
   summarize(cont_Apresentacoes = n()) %>%
   ungroup() -> ted_Apresentacoes
-
+  
 
 # Analise os 10 quantis da quantidade de apresentações por ano.
 # Descarte, do data frame de apresentações do TED Talks, aqueles cujo ano de filmagem tiver quantidade de apresentações menor ou igual à quantidade do quarto quantil.
@@ -280,4 +289,8 @@ ted %>%
 cor(ted_media$ano_filme, ted_media$media_duracao)
 
 # O valor da correlação fica em 0.49, o que é fraco, porém, ao analisar os dados, 
+<<<<<<< HEAD
 # parece que ao passar do tempo a duração diminui  
+=======
+# parece que ao passar do tempo a duração diminui  
+>>>>>>> dd542afdb4ef7c1dc6b5ffe4e863b1951dcb9dce
