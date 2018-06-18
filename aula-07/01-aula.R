@@ -261,27 +261,25 @@ pgeom(6, prob=0.1, lower.tail = TRUE)
 #' 
 #' >> ATIVIDADE EM AULA
 #' 
-#' 1. Faça o gráfico da distribuição de probabilidades de chamadas telefônicas até 20 ligações e simule 500 eventos 
-#' de Bernoulli para esta mesma probabilidade. Nesta simulação, identifique quantas sequências de 6 falhas ocorreram.
-#'  Use como _seed_ os últimos 5 dígitos da sua matrícula. Veja no exemplo anterior o uso da função `rle`.
+#' 1. Faça o gráfico da distribuição de probabilidades de chamadas telefônicas até 20 ligações e simule 500 eventos de Bernoulli para esta mesma probabilidade. Nesta simulação, identifique quantas sequências de 6 falhas ocorreram. Use como _seed_ os últimos 5 dígitos da sua matrícula. Veja no exemplo anterior o uso da função `rle`.
 #' 
-#' 
-
-set.seed(30199)
-
-ligacoes_head_tails <- rbernoulli(500)
-
-seq_head_tails <- rle(ligacoes_head_tails)
-
-seq_head_tails$lengths[!seq_head_tails$values]
+set.seed(11237)
 
 df_geom_probs <- data_frame(x = 0:20, y=pgeom(0:20, prob = 0.1) * 100)
 
 ggplot(df_geom_probs, aes(x=x, y=y)) +
   geom_col() +
-  scale_x_continuous(name = "Tentativas até ser atendido", breaks=0:20) +
-  scale_y_continuous(name = "Prob (%)") +
+  scale_x_continuous(name = "Tentativas até atender", breaks=0:20) +
+  scale_y_continuous(name = "Prob (%)", breaks=seq(from=0, to=50, by=5)) +
   theme_light()
+
+sample_chamadas_tails <- rbernoulli(500)
+
+seq_chamadas_tails <- rle(sample_chamadas_tails)
+
+seq_chamadas_tails$lengths[!seq_chamadas_tails$values]
+
+
 
 #' 
 #' 
